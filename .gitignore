@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Logs
 logs
 *.log
@@ -27,7 +26,6 @@ coverage
 *.njsproj
 *.sln
 *.sw?
-=======
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -157,4 +155,3 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
->>>>>>> cbab39e520a45d6e5d2510c51a120e26f2244c4f

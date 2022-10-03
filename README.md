@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # checkout-form
 
 This template should help get you started developing with Vue 3 in Vite.
@@ -47,6 +46,4 @@ npm run test:e2e # or `npm run test:e2e:ci` for headless testing
 ```sh
 npm run lint
 ```
-=======
 # vueCheckoutForm
->>>>>>> cbab39e520a45d6e5d2510c51a120e26f2244c4f
