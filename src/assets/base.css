@@ -7,6 +7,9 @@
   position: relative;
   font-weight: normal;
 }
+*:focus {
+  outline: 1px solid rgb(165, 42, 26);
+}
 
 body {
   min-height: 100vh;

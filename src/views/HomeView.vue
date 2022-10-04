@@ -26,9 +26,7 @@ export default {
         let prPrice = ""
         if (this.products[i].disabled == false) {
           prPrice = this.products[i].price.replace(",", "")
-          console.log(prPrice)
           totalPr += parseInt(prPrice) * this.products[i].qty
-          console.log(totalPr)
         }
       }
       // Calculate total amount
@@ -60,9 +58,9 @@ export default {
           :class="{disabled: product.disabled }"></ProductCard>
 
         <div class="summary">
-          <p><b>Amount:</b> ₦{{ amount }}</p>
-          <p><b>VAT:</b> ₦{{ vat }}</p>
-          <p><b>Gross Total:</b> ₦{{ total }}</p>
+          <p><b>Amount:</b> <span>₦{{ amount }}</span></p>
+          <p><b>VAT:</b> <span>₦{{ vat }}</span></p>
+          <p><b>Gross Total:</b> <span>₦{{ total }}</span></p>
         </div>
       </div>
       <div class="payment-wrapper">
@@ -98,6 +96,11 @@ h2 {
 
 .summary {
   margin-top: 15px;
+}
+
+.summary span {
+  text-align: right;
+  float: right;
 }
 
 .disabled {

@@ -9,9 +9,9 @@
     <div>
         <h2>Payment Details</h2>
         <div class="card-type-wrapper">
-            <div></div>
-            <div></div>
-            <div></div>
+            <div class="card-1"><h3>Master Card</h3></div>
+            <div class="card-2"><h3>Visa</h3></div>
+            <div class="card-3"><h3>Verve</h3></div>
         </div>
         <form action="">
             <div class="form-control">
@@ -51,7 +51,21 @@
 .card-type-wrapper > div {
     width: 30%;
     height: 50px;
-    background-color: grey;
+    text-align: center;
+    color: #fff;
+}
+
+.card-type-wrapper .card-1 {
+    background-color: orangered;
+}
+
+.card-type-wrapper .card-2 {
+    background-color: darkblue;
+}
+
+.card-type-wrapper .card-3 {
+    background-color: lightblue;
+    color: #343434;
 }
 
 form {
@@ -75,6 +89,10 @@ form input {
     padding: 12px 7px;
     border: 1px solid rgb(218, 217, 217);
     margin-top: 3px;
+}
+
+form input:hover {
+    border-color: rgb(165, 42, 26);
 }
 
 form .form-control-wrapper input {
