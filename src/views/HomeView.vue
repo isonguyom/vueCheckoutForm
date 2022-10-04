@@ -9,9 +9,9 @@ export default {
   data() {
     return {
       products: [
-        { id: id++, name: "Campari Bitter 1L", des: "Italian Bitter", price: "9,000", qty: 5, img: "/src/assets/Campari_1.png" },
-        { id: id++, name: "Hennessy V.S.O.P", des: "French Cognac", price: "50,000", qty: 2, img: "/src/assets/VSOP_1.png" },
-        { id: id++, name: "Remy Martin VSOP", des: "Master's art of blending", price: "38,000", qty: 3, img: "/src/assets/remy-martin.webp" },
+        { id: id++, name: "Campari Bitter 1L", des: "Italian Bitter", price: "9,000", qty: 5, img: "/src/assets/Campari_1.png", disabled: false },
+        { id: id++, name: "Hennessy V.S.O.P", des: "French Cognac", price: "50,000", qty: 2, img: "/src/assets/VSOP_1.png", disabled: true },
+        { id: id++, name: "Remy Martin VSOP", des: "Master's art of blending", price: "38,000", qty: 3, img: "/src/assets/remy-martin.webp", disabled: false },
       ],
       amount: 0,
       vat: 0,
@@ -21,16 +21,30 @@ export default {
 
   methods: {
     calAmount() {
-      
-      this.amount = (9000 * 5) + (50000 * 2) + (38000 * 3)
-  
+      let totalPr = 0
+      for (let i = 0; i < this.products.length; i++) {
+        let prPrice = ""
+        if (this.products[i].disabled == false) {
+          prPrice = this.products[i].price.replace(",", "")
+          console.log(prPrice)
+          totalPr += parseInt(prPrice) * this.products[i].qty
+          console.log(totalPr)
+        }
+      }
+      // Calculate total amount
+      this.amount = totalPr
+      this.vat = Math.ceil(0.15 * this.amount)
+      this.total = this.vat + this.amount
     },
+
+    toggleDisabled(product) {
+      product.disabled = !product.disabled
+      this.calAmount()
+    }
   },
 
   mounted() {
-    this.calAmount(),
-    this.vat = Math.ceil(0.2 * this.amount),
-    this.total = this.vat + this.amount
+    this.calAmount()      
   }
 }
 </script>
@@ -39,19 +53,20 @@ export default {
   <main>
     <h1>Checkout Form</h1>
     <div class="wrapper">
+      <div>
+        <h2>Cart</h2>
+        <ProductCard v-for="product in products" :name="product.name" :des="product.des" :price="product.price"
+          :qty="product.qty" :image="product.img" @toggle-disabled="toggleDisabled(product)"
+          :class="{disabled: product.disabled }"></ProductCard>
+
+        <div class="summary">
+          <p><b>Amount:</b> ₦{{ amount }}</p>
+          <p><b>VAT:</b> ₦{{ vat }}</p>
+          <p><b>Gross Total:</b> ₦{{ total }}</p>
+        </div>
+      </div>
       <div class="payment-wrapper">
         <PaymentForm :total="total"></PaymentForm>
-      </div>
-      <div>
-        <h1>Cart</h1>
-        <ProductCard v-for="product in products" :name="product.name" :des="product.des" :price="product.price"
-          :qty="product.qty" :image="product.img"></ProductCard>
-
-          <div>
-            <p><b>Amount:</b> {{ amount }}</p>
-            <p><b>VAT:</b> {{ vat }}</p>
-            <p><b>Gross Total:</b> {{ total }}</p>
-          </div>
       </div>
     </div>
   </main>
@@ -62,19 +77,43 @@ main {
   min-height: 100vh;
 }
 
+.wrapper {
+  margin-top: 25px;
+}
+
+b {
+  font-weight: 600;
+}
+
+h2 {
+  margin-bottom: 7px;
+  color: rgb(165, 42, 26);
+  font-size: 1.2rem;
+}
+
 .payment-wrapper {
   width: 100%;
+  margin-top: 40px;
+}
+
+.summary {
+  margin-top: 15px;
+}
+
+.disabled {
+  opacity: 0.4;
 }
 
 @media (min-width: 768px) {
   .wrapper {
     display: flex;
     justify-content: space-between;
-    
+
   }
 
-  .wrapper > div {
+  .wrapper>div {
     width: 45%;
+    margin-top: 0;
   }
 }
 </style>

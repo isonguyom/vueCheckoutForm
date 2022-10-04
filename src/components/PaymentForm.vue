@@ -7,7 +7,7 @@
 
 <template>
     <div>
-        <h1>Payment Details</h1>
+        <h2>Payment Details</h2>
         <div class="card-type-wrapper">
             <div></div>
             <div></div>
@@ -32,16 +32,20 @@
                     <input type="number" name="cvc" id="cvc">
                 </div>
             </div>
-            <button type="submit">Pay N{{ total }}</button>
+            <button type="submit">Pay ₦{{ total }}</button>
         </form>
     </div>
 </template>
 
 <style scoped>
+    h2 {
+        color: rgb(165, 42, 26);
+        font-size: 1.2rem;
+    }
 .card-type-wrapper {
     display: flex;
     justify-content: space-between;
-    margin: 30px 0;
+    margin: 10px 0 30px;
 }
 
 .card-type-wrapper > div {
@@ -68,7 +72,9 @@ form .form-control {
 
 form input {
     width: 100%;
-    padding: 10px 7px;
+    padding: 12px 7px;
+    border: 1px solid rgb(218, 217, 217);
+    margin-top: 3px;
 }
 
 form .form-control-wrapper input {
@@ -78,8 +84,15 @@ form .form-control-wrapper input {
 
 form button {
     width: 100%;
-    padding: 10px;
+    padding: 15px;
     cursor: pointer;
     margin-top: 20px;
+    border: none;
+    background-color: rgb(165, 42, 26);
+    color: #fff;
+}
+
+form button:hover {
+    background-color: rgb(121, 25, 13);
 }
 </style>

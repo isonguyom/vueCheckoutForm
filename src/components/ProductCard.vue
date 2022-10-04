@@ -1,12 +1,14 @@
 <script>
     export default {
-        props: ["name", "des", "price", "qty", "image"]
+        props: ["name", "des", "price", "qty", "image"],
+        emits: ['toggle-disabled']
     }
 
 </script>
 
 <template>
     <section class="pr-card">
+        <button class="del-btn" @click="$emit('toggle-disabled')">x</button>
         <div class="pr-card-img">
             <div class="pr-img">
             <img :src="image" alt="">
@@ -29,9 +31,32 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 120px;
-    margin-bottom: 20px;
+    height: 100px;
+    margin-bottom: 15px;
     font-size: 0.8rem;
+    border: 1px solid rgb(218, 217, 217);
+    border-radius: 3px;
+    padding: 0.5rem;
+    background-color: rgba(165, 65, 26, 0.048);
+}
+
+.del-btn {
+    position: absolute;
+    top: 4px;
+    right: 0;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    z-index: 3;
+}
+
+.pr-card h2, .pr-card h3, .pr-card b {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.pr-card h2 {
+    color: rgb(165, 42, 26);
 }
 
 .pr-card-img {
@@ -44,6 +69,6 @@
     width: 30%;
 }
 .pr-card-img img {
-    height: 90px;
+    height: 80px;
 }
 </style>
