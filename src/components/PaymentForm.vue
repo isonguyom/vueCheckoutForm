@@ -16,10 +16,10 @@ export default {
         },
 
         cardNumFormatting(e) {
-            if (e.target.value !== "") {   
-            e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').match(/.{1,4}/g).join(' ');
-            this.checkCardType()
-        }
+            if (e.target.value !== "") {
+                e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').match(/.{1,4}/g).join(' ');
+                this.checkCardType()
+            }
         },
 
         checkCardType() {
@@ -39,6 +39,12 @@ export default {
                 this.card = ""
             }
         },
+
+        changeToDate(e) {
+
+            e.target.type = 'month'
+        },
+
     },
 
 }
@@ -71,12 +77,12 @@ export default {
                 <label for="cardNumber">Card Number</label>
                 <input type="text" name="card-number" id="cardNumber" v-model="cardNum" maxlength="19"
                     @keyup="cardNumFormatting">
-                    <p>{{ cardNum }}</p>
+                <p>{{ cardNum }}</p>
             </div>
             <div class="form-control-wrapper">
                 <div class="form-control">
                     <label for="validity">Valid Until</label>
-                    <input type="text" name="validity" id="validity" placeholder="MM/YY" @input="onlyNums">
+                    <input type="text" name="validity" id="validity" placeholder="MM/YYYY"  @focus="changeToDate">
                 </div>
                 <div class="form-control">
                     <label for="cvc">CVC</label>
@@ -154,6 +160,10 @@ form input:hover {
 form .form-control-wrapper input {
     width: 70px;
     display: block;
+}
+
+form .form-control-wrapper input#validity {
+    width: 120px;
 }
 
 form button {
