@@ -1,22 +1,29 @@
 <script>
-    export default {
-        props: ["total"],
+export default {
+    props: ["total"],
 
-        data() {
-            return {
-                  card: "",
-                cardNum: "",
-            }
+    data() {
+        return {
+            card: "",
+            cardNum: "",
+        }
+    },
+
+
+    methods: {
+        onlyNums(e) {
+            e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
         },
 
-        methods: {
-            onlyNums(e) {
-                e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
-                this.checkCardType()
-            },
+        cardNumFormatting(e) {
+            if (e.target.value !== "") {   
+            e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').match(/.{1,4}/g).join(' ');
+            this.checkCardType()
+        }
+        },
 
-            checkCardType() {
-                if (this.cardNum !== "") {
+        checkCardType() {
+            if (this.cardNum !== "") {
                 for (let i = 0; i < this.cardNum.length; i++) {
                     if (this.cardNum[0] === "5") {
                         this.card = "master"
@@ -26,14 +33,15 @@
                         this.card = "verve"
                     } else {
                         this.card = ""
-                    } 
+                    }
                 }
-            }else {
+            } else {
                 this.card = ""
             }
-            }
         },
-    }
+    },
+
+}
 
 </script>
 
@@ -61,7 +69,9 @@
             </div>
             <div class="form-control">
                 <label for="cardNumber">Card Number</label>
-                <input type="text" name="card-number" id="cardNumber" v-model="cardNum"  maxlength="19" @keyup="onlyNums">
+                <input type="text" name="card-number" id="cardNumber" v-model="cardNum" maxlength="19"
+                    @keyup="cardNumFormatting">
+                    <p>{{ cardNum }}</p>
             </div>
             <div class="form-control-wrapper">
                 <div class="form-control">
@@ -79,10 +89,11 @@
 </template>
 
 <style scoped>
-    h2 {
-        color: rgb(165, 42, 26);
-        font-size: 1.2rem;
-    }
+h2 {
+    color: rgb(165, 42, 26);
+    font-size: 1.2rem;
+}
+
 .card-type-wrapper {
     display: flex;
     justify-content: center;
