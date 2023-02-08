@@ -9,6 +9,12 @@ export default {
         }
     },
 
+    watch: {
+        cardNum() {
+            this.checkCardType()
+        }
+    },
+
 
     methods: {
         onlyNums(e) {
@@ -18,22 +24,19 @@ export default {
         cardNumFormatting(e) {
             if (e.target.value !== "") {
                 e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').match(/.{1,4}/g).join(' ');
-                this.checkCardType()
             }
         },
 
         checkCardType() {
             if (this.cardNum !== "") {
-                for (let i = 0; i < this.cardNum.length; i++) {
-                    if (this.cardNum[0] === "5") {
-                        this.card = "master"
-                    } else if (this.cardNum[0] === "7") {
-                        this.card = "visa"
-                    } else if (this.cardNum[0] === "2") {
-                        this.card = "verve"
-                    } else {
-                        this.card = ""
-                    }
+                if (this.cardNum.match(/^5[1-5]/) || this.cardNum.match(/^2[2-7]/)) { ///^5(?=.*[1-5])/g
+                    this.card = "master"
+                }else if (this.cardNum.match(/^4/)) {
+                    this.card = "visa"
+                }else if (this.cardNum.match(/^5[0][67]/) || this.cardNum.match(/^5[6]/)) {
+                    this.card = "verve"
+                }else {
+                this.card = ""
                 }
             } else {
                 this.card = ""
@@ -82,7 +85,7 @@ export default {
             <div class="form-control-wrapper">
                 <div class="form-control">
                     <label for="validity">Valid Until</label>
-                    <input type="text" name="validity" id="validity" placeholder="MM/YYYY"  @focus="changeToDate">
+                    <input type="text" name="validity" id="validity" placeholder="MM/YYYY" @focus="changeToDate">
                 </div>
                 <div class="form-control">
                     <label for="cvc">CVC</label>
